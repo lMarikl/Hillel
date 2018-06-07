@@ -1,7 +1,6 @@
 package homework2;
 
 public class Main {
-
     private static int currentSize = 10;
     private static int size;
     private static int countReSize;
