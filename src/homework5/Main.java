@@ -19,7 +19,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("SimpleGame");
+        primaryStage.setTitle("MyPaint");
         Canvas canvas = new Canvas();
         board = new Board(canvas.getGraphicsContext2D());
         canvas.setWidth(WIDTH);
@@ -29,7 +29,6 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         drawFrame();
-        //new Thread(this::runMainGameLoopInThread).start();
     }
 
     @Override
