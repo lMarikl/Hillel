@@ -1,21 +1,48 @@
 package homework5;
 
+import homework5.shape.Ball;
+import homework5.shape.Rectangle;
+import homework5.shape.Shape;
+import homework5.shape.Triangle;
 import javafx.scene.canvas.GraphicsContext;
 
+import java.util.ArrayList;
+
 public class Board {
-    private final GraphicsContext GC;
-    private Ball ball;
-    private Rectangle rectangle;
-    private Triangle triangle;
+    public final GraphicsContext GC;
+    private ArrayList<Shape> shapes = new ArrayList<>();
+
 
     public Board(GraphicsContext gc) {
         this.GC = gc;
-        ball = new Ball(gc);
-        rectangle = new Rectangle(gc);
-        triangle = new Triangle(gc);
+
     }
 
-    public void draw(){
-        triangle.draw();
+    public void add(Shape shape){
+        shapes.add(shape);
+
     }
+
+    public void drawAllShape(){
+        for (int i = 0; i < shapes.size() ; i++) {
+            shapes.get(i).draw();
+        }
+
+    }
+
+    public void remove(){
+        if (shapes.size() != 0){
+            shapes.remove(shapes.size() - 1);
+            this.GC.clearRect(0, 0, 800, 700);
+            drawAllShape();
+            System.out.println(shapes.size());
+
+        }
+
+    }
+
+    public void move(){
+        shapes.get(shapes.size() - 1).move();
+    }
+
 }
