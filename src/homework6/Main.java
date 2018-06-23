@@ -26,7 +26,7 @@ public class Main {
         Gson gson = new Gson();
         Currency currency = gson.fromJson(result, Currency.class);
         try{
-            if (currency.getExchangeRate().size() == 0){
+            if (currency.getExchangeRate().isEmpty()){
                 System.out.println("курс на данную дату еще не готов");
             }
             for (int i = 0; i < currency.getExchangeRate().size(); i++) {
