@@ -7,9 +7,6 @@ class Currency {
     private double saleRateNB;
     private List<Currency> exchangeRate;
 
-    Currency() {
-    }
-
     List<Currency> getExchangeRate() {
         return exchangeRate;
     }

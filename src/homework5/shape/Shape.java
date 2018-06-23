@@ -17,7 +17,7 @@ public abstract class Shape {
     public abstract void draw();
 
     public void move() {
-        x =+ speedX;
+        x += speedX;
     }
 
 }

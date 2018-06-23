@@ -9,6 +9,7 @@ public class Main {
     private static String result;
 
     public static void main(String[] args) {
+        System.out.println("Введите дату в формате: 25.01.2017");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String baseUrl = "https://api.privatbank.ua/p24api/exchange_rates?json&date=";
         String url = null;

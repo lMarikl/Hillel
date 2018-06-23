@@ -36,14 +36,15 @@ public class Main extends Application {
         //drawFrame();
     }
 
-//    private void drawFrame() {
-//        board.draw();
-//    }
+    private void clean() {
+        board.GC.clearRect(0, 0, WIDTH, HEIGHT);
+    }
 
     public void registerOnKeyPressListener(Scene scene) {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
+                clean();
                 switch (event.getCode()) {
                     case UP:
 

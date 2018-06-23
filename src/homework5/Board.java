@@ -9,7 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import java.util.ArrayList;
 
 public class Board {
-    public final GraphicsContext GC;
+    public GraphicsContext GC;
     private ArrayList<Shape> shapes = new ArrayList<>();
 
 
@@ -42,7 +42,10 @@ public class Board {
     }
 
     public void move(){
-        shapes.get(shapes.size() - 1).move();
+        for (Shape shape : shapes){
+            shape.move();
+
+        }
     }
 
 }

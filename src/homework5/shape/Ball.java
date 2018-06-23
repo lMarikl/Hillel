@@ -17,9 +17,4 @@ public class Ball extends Shape {
         GC.fillOval(this.x, y, size, size);
         GC.strokeOval(x, y, size, size);
     }
-
-    @Override
-    public void move() {
-        super.move();
-    }
 }
