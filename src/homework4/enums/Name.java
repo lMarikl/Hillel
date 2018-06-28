@@ -1,6 +1,6 @@
-package homework4.Enums;
+package homework4.enums;
 
-public enum Names {
+public enum Name {
     Николай(0),
     Сергей(1),
     Иван(2),
@@ -10,7 +10,7 @@ public enum Names {
 
     public int value;
 
-    Names(int value) {
+    Name(int value) {
         this.value = value;
     }
 }

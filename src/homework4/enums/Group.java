@@ -1,6 +1,6 @@
-package homework4.Enums;
+package homework4.enums;
 
-public enum Groups {
+public enum Group {
     Java(0),
     CPlusPlus(1),
     Python(2),
@@ -9,7 +9,7 @@ public enum Groups {
     Frontend(5);
     public int value;
 
-    Groups(int value) {
+    Group(int value) {
         this.value = value;
     }
 }

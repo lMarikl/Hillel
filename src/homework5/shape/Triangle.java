@@ -3,20 +3,23 @@ package homework5.shape;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class Triangle extends Shape {
+import java.util.List;
 
-    public Triangle(GraphicsContext GC) {
-        super(GC);
-        draw();
+public class Triangle extends BaseShape {
+
+    public Triangle(GraphicsContext GC, List<Shape> shapes, boolean inFocus) {
+        super(GC, shapes, inFocus);
     }
 
 
     public void draw(){
-
-        GC.setFill(Color.RED);
-        GC.setStroke(Color.BLACK);
-        GC.setLineWidth(3);
-        GC.fillPolygon(new double[] { x, x + size / 2, x + size }, new double[] { y + size, y, y + size }, 3);
-        GC.strokePolygon(new double[] { x, x + size / 2, x + size }, new double[] { y + size, y, y + size }, 3);
+        super.draw();
+        if (getInFocus()){
+            gc.setFill(Color.RED);
+            gc.fillPolygon(new double[] { getX(), getX() + getSIZE() / 2, getX() + getSIZE() },
+                    new double[] { getY() + getSIZE(), getY(), getY() + getSIZE() }, 3);
+        }
+        gc.strokePolygon(new double[] { getX(), getX() + getSIZE() / 2, getX() + getSIZE() },
+                new double[] { getY() + getSIZE(), getY(), getY() + getSIZE() }, 3);
     }
 }

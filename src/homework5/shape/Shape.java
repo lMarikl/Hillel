@@ -1,23 +1,18 @@
 package homework5.shape;
 
-import javafx.scene.canvas.GraphicsContext;
+import homework5.enums.Direction;
+import homework5.enums.Type;
 
-public abstract class Shape {
-    public final GraphicsContext GC;
-    public double size = 50;
-    public double x = 5;
-    public double y = 5;
-    public double speedX = 10;
-    public double speedY = 10;
-
-    public Shape(GraphicsContext GC) {
-        this.GC = GC;
-    }
-
-    public abstract void draw();
-
-    public void move() {
-        x += speedX;
-    }
-
+public interface Shape {
+    void draw();
+    void move(Direction direction);
+    void setInFocus(boolean inFocus);
+    boolean getInFocus();
+    double getX();
+    double getY();
+    double getSIZE();
+    Type getType();
+    void setType(Type type);
+    void setX(double x);
+    void setY(double y);
 }

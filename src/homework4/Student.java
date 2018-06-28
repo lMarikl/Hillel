@@ -1,36 +1,36 @@
 package homework4;
 
-import homework4.Enums.Groups;
-import homework4.Enums.Names;
-import homework4.Enums.Surnames;
+import homework4.enums.Group;
+import homework4.enums.Name;
+import homework4.enums.Surname;
 import java.util.Random;
 
 public class Student extends User implements Comparable<User> {
-    private Groups group;
+    private Group group;
     private static Random random = new Random();
 
-    Student(Surnames surname, Names name, int age, Groups group) {
+    Student(Surname surname, Name name, int age, Group group) {
         super(surname, name ,age);
         this.group = group;
     }
 
-    static Groups getRandomGroup() {
+    static Group getRandomGroup() {
         if (random.nextInt(6) == 0) {
-            return Groups.Java;
+            return Group.Java;
         }
         if (random.nextInt(6) == 1) {
-            return Groups.CPlusPlus;
+            return Group.CPlusPlus;
         }
         if (random.nextInt(6) == 2) {
-            return Groups.Python;
+            return Group.Python;
         }
         if (random.nextInt(6) == 3) {
-            return Groups.QA;
+            return Group.QA;
         }
         if (random.nextInt(6) == 4) {
-            return Groups.Design;
+            return Group.Design;
         } else {
-            return Groups.Frontend;
+            return Group.Frontend;
         }
     }
 

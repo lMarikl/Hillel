@@ -1,66 +1,66 @@
 package homework4;
 
-import homework4.Enums.Names;
-import homework4.Enums.Surnames;
+import homework4.enums.Name;
+import homework4.enums.Surname;
 import java.util.Random;
 
 public class User implements Comparable<User> {
-    private Names name;
-    private Surnames surname;
+    private Name name;
+    private Surname surname;
     private int age;
     private static Random random = new Random();
 
-    User(Surnames surname,Names name, int age) {
+    User(Surname surname, Name name, int age) {
         this.surname = surname;
         this.name = name;
         this.age = age;
     }
 
-    static Surnames getRandomSurname() {
+    static Surname getRandomSurname() {
         if (random.nextInt(6) == 0) {
-            return Surnames.Пердыщенко;
+            return Surname.Пердыщенко;
         }
         if (random.nextInt(6) == 1) {
-            return Surnames.Прыбыток;
+            return Surname.Прыбыток;
         }
         if (random.nextInt(6) == 2) {
-            return Surnames.Матюшкин;
+            return Surname.Матюшкин;
         }
         if (random.nextInt(6) == 3) {
-            return Surnames.Шмырев;
+            return Surname.Шмырев;
         }
         if (random.nextInt(6) == 4) {
-            return Surnames.Шмелёв;
+            return Surname.Шмелёв;
         } else {
-            return Surnames.Базин;
+            return Surname.Базин;
         }
     }
 
-    static Names getRandomName() {
+    static Name getRandomName() {
         if (random.nextInt(6) == 0) {
-            return Names.Николай;
+            return Name.Николай;
         }
         if (random.nextInt(6) == 1) {
-            return Names.Сергей;
+            return Name.Сергей;
         }
         if (random.nextInt(6) == 2) {
-            return Names.Иван;
+            return Name.Иван;
         }
         if (random.nextInt(6) == 3) {
-            return Names.Вадим;
+            return Name.Вадим;
         }
         if (random.nextInt(6) == 4) {
-            return Names.Андрей;
+            return Name.Андрей;
         } else {
-            return Names.Дмитрий;
+            return Name.Дмитрий;
         }
     }
 
-    Names getName() {
+    Name getName() {
         return name;
     }
 
-    Surnames getSurname() {
+    Surname getSurname() {
         return surname;
     }
 
