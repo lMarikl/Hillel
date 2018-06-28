@@ -4,6 +4,7 @@ public class IntArrayList<E> implements IntList<E>{
     private Object[] values = new Object[10];
     private int size;
 
+    @Override
     public void add(E value) {
         if (size >= values.length) {
             resize();
@@ -21,6 +22,7 @@ public class IntArrayList<E> implements IntList<E>{
         values = newArr;
     }
 
+    @Override
     public void add(int index, E element) {
         if (size >= values.length) {
             resize();
@@ -29,10 +31,12 @@ public class IntArrayList<E> implements IntList<E>{
         values[index] = element;
     }
 
+    @Override
     public void clear() {
         values = new Object[0];
     }
 
+    @Override
     public boolean contains(E value) {
         for (Object value1 : values) {
             if (value1.equals(value)) {
@@ -42,14 +46,17 @@ public class IntArrayList<E> implements IntList<E>{
         return false;
     }
 
+    @Override
     public E get(int index) {
         return (E) values[index];
     }
 
+    @Override
     public boolean isEmpty() {
         return values.length == 0;
     }
 
+    @Override
     public void remove(int index) {
         Object[] tmpArray = values;
         values = new Object[values.length - 1];
@@ -57,6 +64,7 @@ public class IntArrayList<E> implements IntList<E>{
         System.arraycopy(tmpArray, index + 1, values, index, tmpArray.length - index - 1);
     }
 
+    @Override
     public void removeElement(E element) {
         for (int i = 0; i < values.length ; i++) {
             if (values[i] == element){
@@ -65,10 +73,12 @@ public class IntArrayList<E> implements IntList<E>{
         }
     }
 
+    @Override
     public void set(int index, E element) {
         values[index] = element;
     }
 
+    @Override
     public int size() {
         return values.length;
     }
