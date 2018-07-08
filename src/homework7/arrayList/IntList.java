@@ -1,4 +1,4 @@
-package homework7;
+package homework7.arrayList;
 
 public interface IntList<E> {
     void add(E element);

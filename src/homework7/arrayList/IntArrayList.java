@@ -1,4 +1,4 @@
-package homework7;
+package homework7.arrayList;
 
 public class IntArrayList<E> implements IntList<E>{
     private Object[] values = new Object[10];

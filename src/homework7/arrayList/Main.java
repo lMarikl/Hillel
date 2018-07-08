@@ -1,4 +1,4 @@
-package homework7;
+package homework7.arrayList;
 
 public class Main {
     public static void main(String[] args) {
