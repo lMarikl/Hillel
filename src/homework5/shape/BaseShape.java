@@ -7,23 +7,25 @@ import javafx.scene.paint.Color;
 import java.util.List;
 
 public abstract class BaseShape implements Shape {
-    protected final GraphicsContext gc;
-    private final int SIZE = 50;
+    GraphicsContext gc;
+    private double size;
+    private double maxSize;
+    private double minSize;
     private double x;
     private double y;
     private double speedX;
     private double speedY;
     private boolean inFocus;
-    private Type type;
-
-    public BaseShape(GraphicsContext gc, List<Shape> shapes, boolean inFocus) {
+    public BaseShape(GraphicsContext gc, List<Shape> shapes) {
         this.gc = gc;
+        size = 50;
+        maxSize = 150;
+        minSize = 50;
         speedX = 10;
         speedY = 10;
         x = 5;
         y = 5;
-        this.inFocus = inFocus;
-
+        inFocus = true;
     }
 
     @Override
@@ -50,6 +52,20 @@ public abstract class BaseShape implements Shape {
     }
 
     @Override
+    public void increase() {
+        if (size < maxSize){
+            size += speedX;
+        }
+    }
+
+    @Override
+    public void decrease() {
+        if (size > minSize){
+            size -= speedX;
+        }
+    }
+
+    @Override
     public void setInFocus(boolean inFocus) {
         this.inFocus = inFocus;
     }
@@ -67,16 +83,12 @@ public abstract class BaseShape implements Shape {
         return y;
     }
 
-    public double getSIZE() {
-        return SIZE;
+    public double getSize() {
+        return size;
     }
 
-    public Type getType() {
-        return type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
+    public void setSize(double size) {
+        this.size = size;
     }
 
     public void setX(double x) {

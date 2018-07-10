@@ -10,9 +10,10 @@ public interface Shape {
     boolean getInFocus();
     double getX();
     double getY();
-    double getSIZE();
-    Type getType();
-    void setType(Type type);
+    double getSize();
+    void setSize(double size);
+    void increase();
+    void decrease();
     void setX(double x);
     void setY(double y);
 }

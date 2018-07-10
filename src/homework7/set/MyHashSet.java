@@ -3,22 +3,12 @@ package homework7.set;
 import java.util.Arrays;
 
 public class MyHashSet<E> implements MySet<E> {
-    protected int capacity;
-    protected int size;
-    protected Node[] cells;
+    private Node[] buckets;
 
-    private class Node{
-        Object value;
-        Node next;
-
-        public Node(E value){
-            this.value = value;
-        }
-    }
-
-    MyHashSet() {
-        capacity = 16;
-        cells =
+    private int currentSize;
+    private int current;
+    public MyHashSet(){
+        //buckets = new Node[16];
     }
 
     @Override
@@ -48,11 +38,23 @@ public class MyHashSet<E> implements MySet<E> {
 
     @Override
     public int size() {
-        return size;
+        return 0;
     }
 
     @Override
     public void toArray() {
 
+    }
+
+    @Override
+    public String toString() {
+        return "MyHashSet{" +
+                "buckets=" + (buckets == null ? null : Arrays.asList(buckets)) +
+                '}';
+    }
+
+    public class Node {
+        public Object data;
+        public Node next;
     }
 }

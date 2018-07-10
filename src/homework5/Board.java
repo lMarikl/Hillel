@@ -2,62 +2,52 @@ package homework5;
 
 import homework5.enums.Direction;
 import homework5.enums.Type;
-import homework5.shape.Ball;
-import homework5.shape.Rectangle;
-import homework5.shape.Shape;
-import homework5.shape.Triangle;
+import homework5.shape.*;
 import javafx.scene.canvas.GraphicsContext;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
     GraphicsContext GC;
     private List<Shape> shapes = new ArrayList<>();
-    private List<Shape> activeShapeList = new ArrayList<>();
+    private List<Shape> inFocusShapes = new ArrayList<>();
 
-
-    public Board(GraphicsContext gc) {
+    Board(GraphicsContext gc) {
         this.GC = gc;
-
     }
 
     public void add(Type shapeType) {
-        for (int i = 0; i < shapes.size(); i++) {
-            shapes.get(i).setInFocus(false);
+        for (Shape shape : shapes) {
+            shape.setInFocus(false);
         }
-
         if (shapeType == Type.BALL) {
-            shapes.add(shapes.size(), new Ball(GC, shapes, true));
+            shapes.add(shapes.size(), new Ball(GC, shapes));
         }
         if (shapeType == Type.TRIANGLE) {
-            shapes.add(shapes.size(), new Triangle(GC, shapes, true));
+            shapes.add(shapes.size(), new Triangle(GC, shapes));
         }
         if (shapeType == Type.RECTANGLE) {
-            shapes.add(shapes.size(), new Rectangle(GC, shapes, true));
+            shapes.add(shapes.size(), new Rectangle(GC, shapes));
         }
     }
 
-    public void draw() {
-        for (int i = 0; i < shapes.size(); i++) {
-            shapes.get(i).draw();
+    void draw() {
+        for (Shape shape : shapes) {
+            shape.draw();
         }
-
     }
 
-    public void remove() {
+    void remove() {
         if (shapes.size() != 1) {
             shapes.remove(shapes.size() - 1);
             this.GC.clearRect(0, 0, 800, 700);
             draw();
             shapes.get(shapes.size() - 1).setInFocus(true);
             System.out.println(shapes.size());
-
         }
-
     }
 
-    public void move(Direction direction) {
+    void move(Direction direction) {
         for (Shape shape : shapes) {
             if (shape.getInFocus()) {
                 shape.move(direction);
@@ -65,7 +55,15 @@ public class Board {
         }
     }
 
-    public void prevShape() {
+    void increase(){
+        for (Shape shape : shapes) {
+            if (shape.getInFocus()){
+                shape.increase();
+            }
+        }
+    }
+
+    void prevShape() {
         for (int i = 0; i < shapes.size(); i++) {
             if (shapes.get(i).getInFocus()) {
                 shapes.get(i).setInFocus(false);
@@ -79,7 +77,7 @@ public class Board {
         }
     }
 
-    public void nextShape() {
+    void nextShape() {
         for (int i = 0; i < shapes.size(); i++) {
             if (shapes.get(i).getInFocus()) {
                 shapes.get(i).setInFocus(false);
@@ -93,45 +91,53 @@ public class Board {
         }
     }
 
-    public void toGroup() {
-
-    }
-
-    public void cloneShape(double mouseX, double mouseY) {
-
-        for (int i = 0; i < shapes.size(); i++) {
-            if ((mouseX >= shapes.get(i).getX() && mouseX <= shapes.get(i).getX() + shapes.get(i).getSIZE()) &&
-                    (mouseY >= shapes.get(i).getY() && mouseY <= shapes.get(i).getY() + shapes.get(i).getSIZE())) {
-                activeShapeList.add(shapes.get(i));
-                shapes.get(i).setInFocus(true);
+    void toGroup(double mouseX, double mouseY) {
+        for (Shape shape : shapes) {
+            if ((mouseX >= shape.getX() && mouseX <= shape.getX() + shape.getSize()) &&
+                    (mouseY >= shape.getY() && mouseY <= shape.getY() + shape.getSize())) {
+                inFocusShapes.add(shape);
+                shape.setInFocus(true);
                 draw();
             }
-
         }
-
-        for (int i = 0; i < activeShapeList.size(); i++) {
-            Shape shape;
-            if (activeShapeList.get(i) instanceof Ball) {
-                shape = new Ball(GC, shapes, false);
-                shape.setX(activeShapeList.get(i).getX());
-                shape.setY(activeShapeList.get(i).getY());
-                shapes.add(shapes.size(), shape);
-            }
-            if (activeShapeList.get(i) instanceof Triangle) {
-                shape = new Triangle(GC, shapes, false);
-                shape.setX(activeShapeList.get(i).getX());
-                shape.setY(activeShapeList.get(i).getY());
-                shapes.add(shapes.size(), shape);
-            }
-            if (activeShapeList.get(i) instanceof Rectangle) {
-                shape = new Rectangle(GC, shapes, false);
-                shape.setX(activeShapeList.get(i).getX());
-                shape.setY(activeShapeList.get(i).getY());
-                shapes.add(shapes.size(), shape);
-            }
-
-        }
-
     }
 
+    void cloneShape(double mouseX, double mouseY) {
+        for (Shape shape1 : shapes) {
+            if ((mouseX >= shape1.getX() && mouseX <= shape1.getX() + shape1.getSize()) &&
+                    (mouseY >= shape1.getY() && mouseY <= shape1.getY() + shape1.getSize())) {
+                inFocusShapes.add(shape1);
+                shape1.setInFocus(true);
+                draw();
+            }
+        }
+
+        for (Shape inFocusShape : inFocusShapes) {
+            Shape shape;
+            if (inFocusShape instanceof Ball) {
+                shape = new Ball(GC, shapes);
+                shape.setInFocus(false);
+                shape.setSize(inFocusShape.getSize());
+                shape.setX(inFocusShape.getX());
+                shape.setY(inFocusShape.getY());
+                shapes.add(shapes.size(), shape);
+            }
+            if (inFocusShape instanceof Triangle) {
+                shape = new Triangle(GC, shapes);
+                shape.setInFocus(false);
+                shape.setSize(inFocusShape.getSize());
+                shape.setX(inFocusShape.getX());
+                shape.setY(inFocusShape.getY());
+                shapes.add(shapes.size(), shape);
+            }
+            if (inFocusShape instanceof Rectangle) {
+                shape = new Rectangle(GC, shapes);
+                shape.setInFocus(false);
+                shape.setSize(inFocusShape.getSize());
+                shape.setX(inFocusShape.getX());
+                shape.setY(inFocusShape.getY());
+                shapes.add(shapes.size(), shape);
+            }
+        }
+    }
 }

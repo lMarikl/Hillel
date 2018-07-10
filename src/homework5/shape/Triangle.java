@@ -7,8 +7,8 @@ import java.util.List;
 
 public class Triangle extends BaseShape {
 
-    public Triangle(GraphicsContext GC, List<Shape> shapes, boolean inFocus) {
-        super(GC, shapes, inFocus);
+    public Triangle(GraphicsContext GC, List<Shape> shapes) {
+        super(GC, shapes);
     }
 
 
@@ -16,10 +16,10 @@ public class Triangle extends BaseShape {
         super.draw();
         if (getInFocus()){
             gc.setFill(Color.RED);
-            gc.fillPolygon(new double[] { getX(), getX() + getSIZE() / 2, getX() + getSIZE() },
-                    new double[] { getY() + getSIZE(), getY(), getY() + getSIZE() }, 3);
+            gc.fillPolygon(new double[] { getX(), getX() + getSize() / 2, getX() + getSize() },
+                    new double[] { getY() + getSize(), getY(), getY() + getSize() }, 3);
         }
-        gc.strokePolygon(new double[] { getX(), getX() + getSIZE() / 2, getX() + getSIZE() },
-                new double[] { getY() + getSIZE(), getY(), getY() + getSIZE() }, 3);
+        gc.strokePolygon(new double[] { getX(), getX() + getSize() / 2, getX() + getSize() },
+                new double[] { getY() + getSize(), getY(), getY() + getSize() }, 3);
     }
 }
