@@ -72,7 +72,7 @@ public class Main extends Application {
                     board.increase();
                     break;
                 case W:
-
+                    board.decrease();
                     break;
                 case DELETE:
                     board.remove();

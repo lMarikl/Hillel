@@ -9,6 +9,8 @@ import java.util.List;
 
 public class Board {
     GraphicsContext GC;
+    private Shape shapeInFocus;
+    private Shape shapeToAdd;
     private List<Shape> shapes = new ArrayList<>();
     private List<Shape> inFocusShapes = new ArrayList<>();
 
@@ -28,6 +30,9 @@ public class Board {
         }
         if (shapeType == Type.RECTANGLE) {
             shapes.add(shapes.size(), new Rectangle(GC, shapes));
+        }
+        if (shapeType == Type.GROUP){
+            shapes.add(shapes.size(), new Group(shapeInFocus, shapeToAdd));
         }
     }
 
@@ -63,6 +68,14 @@ public class Board {
         }
     }
 
+    void decrease(){
+        for (Shape shape : shapes) {
+            if (shape.getInFocus()){
+                shape.decrease();
+            }
+        }
+    }
+
     void prevShape() {
         for (int i = 0; i < shapes.size(); i++) {
             if (shapes.get(i).getInFocus()) {
@@ -83,7 +96,7 @@ public class Board {
                 shapes.get(i).setInFocus(false);
                 if (i == shapes.size() - 1) {
                     shapes.get(0).setInFocus(true);
-                } else {
+                }else {
                     shapes.get(i + 1).setInFocus(true);
                 }
                 break;
@@ -93,21 +106,29 @@ public class Board {
 
     void toGroup(double mouseX, double mouseY) {
         for (Shape shape : shapes) {
+
+            if (shape.getInFocus()) {
+                shapeInFocus = shape;
+            }
+
+            if ((mouseX >= shape.getX() && mouseX <= shape.getX() + shape.getSize()) &&
+                    (mouseY >= shape.getY() && mouseY <= shape.getY() + shape.getSize())) {
+                shapeToAdd = shape;
+                shapeToAdd.setInFocus(true);
+            }
+        }
+        shapes.remove(shapeInFocus);
+        shapes.remove(shapeToAdd);
+        add(Type.GROUP);
+        draw();
+    }
+
+    void cloneShape(double mouseX, double mouseY) {
+        for (Shape shape : shapes) {
             if ((mouseX >= shape.getX() && mouseX <= shape.getX() + shape.getSize()) &&
                     (mouseY >= shape.getY() && mouseY <= shape.getY() + shape.getSize())) {
                 inFocusShapes.add(shape);
                 shape.setInFocus(true);
-                draw();
-            }
-        }
-    }
-
-    void cloneShape(double mouseX, double mouseY) {
-        for (Shape shape1 : shapes) {
-            if ((mouseX >= shape1.getX() && mouseX <= shape1.getX() + shape1.getSize()) &&
-                    (mouseY >= shape1.getY() && mouseY <= shape1.getY() + shape1.getSize())) {
-                inFocusShapes.add(shape1);
-                shape1.setInFocus(true);
                 draw();
             }
         }

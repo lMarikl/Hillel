@@ -1,11 +1,13 @@
 package homework7.set;
 
+import java.util.ArrayList;
+
 public interface MySet<E> {
-    void add(E e);
+    boolean add(E e);
     void clear();
-    boolean contains(Object o);
+    boolean contains(E e);
     boolean isEmpty();
-    void remove(Object o);
+    boolean remove(E o);
     int size();
-    void toArray();
+    ArrayList<E> toArray();
 }

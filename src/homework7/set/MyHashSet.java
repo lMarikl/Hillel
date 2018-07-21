@@ -1,60 +1,130 @@
 package homework7.set;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class MyHashSet<E> implements MySet<E> {
-    private Node[] buckets;
+    private int capacity;
+    private int size = 0;
+    private LinkedList[] table;
 
-    private int currentSize;
-    private int current;
-    public MyHashSet(){
-        //buckets = new Node[16];
+    MyHashSet() {
+        this.capacity = 16;
+        table = new LinkedList[capacity];
     }
 
-    @Override
-    public void add(E e) {
-
+    private double currentLoadFactor() {
+        return (double) size / (double) capacity;
     }
 
     @Override
     public void clear() {
-
+        size = 0;
+        for (int i = 0; i < capacity; i++) {
+            if (table[i] != null) {
+                table[i].clear();
+            }
+        }
     }
 
     @Override
-    public boolean contains(Object o) {
+    public boolean contains(E e) {
+        int bucketIndex = hash();
+        if (table[bucketIndex] != null) {
+            LinkedList bucket = table[bucketIndex];
+            for (Object element : bucket) {
+                if (element.equals(e)) {
+                    return true;
+                }
+            }
+        }
         return false;
+    }
+
+    @Override
+    public boolean add(E e) {
+        if (contains(e)) {
+            return false;
+        }
+        float maxLoad = 0.75f;
+        if (currentLoadFactor() > maxLoad) {
+            rehash();
+        }
+        int bucketIndex = hash();
+        if (table[bucketIndex] == null) {
+            table[bucketIndex] = new LinkedList<>();
+        }
+        table[bucketIndex].add(e);
+        size++;
+        return true;
+    }
+
+    private int hash() {
+        return hashCode() % table.length;
+    }
+
+    private void rehash() {
+        ArrayList<E> list = toArray();
+        capacity = size * 2;
+        table = new LinkedList[capacity];
+        size = 0;
+        for (E element : list) {
+            add(element);
+        }
+    }
+
+    @Override
+    public ArrayList<E> toArray() {
+        ArrayList<E> list = new ArrayList<>();
+        for (int i = 0; i < capacity; i++) {
+            if (table[i] != null) {
+                list.addAll(table[i]);
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public boolean remove(E e) {
+        if (!contains(e)) {
+            return false;
+        }
+        int bucketIndex = hash();
+        if (table[bucketIndex] != null) {
+            LinkedList bucket = table[bucketIndex];
+            for (Object element : bucket) {
+                if (e.equals(element)) {
+                    bucket.remove(element);
+                    break;
+                }
+            }
+        }
+        size--;
+        return true;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
-    }
-
-    @Override
-    public void remove(Object o) {
-
+        return size == 0;
     }
 
     @Override
     public int size() {
-        return 0;
-    }
-
-    @Override
-    public void toArray() {
-
+        return size;
     }
 
     @Override
     public String toString() {
-        return "MyHashSet{" +
-                "buckets=" + (buckets == null ? null : Arrays.asList(buckets)) +
-                '}';
-    }
-
-    public class Node {
-        public Object data;
-        public Node next;
+        ArrayList<E> list = toArray();
+        StringBuilder builder = new StringBuilder("[");
+        for (int i = 0; i < list.size() - 1; i++) {
+            builder.append(list.get(i)).append(", ");
+        }
+        if (list.size() == 0) {
+            builder.append("]");
+        } else {
+            builder.append(list.get(list.size() - 1)).append("]");
+        }
+        return builder.toString();
     }
 }
