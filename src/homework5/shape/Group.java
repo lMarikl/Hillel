@@ -106,6 +106,5 @@ public class Group implements Shape {
 
     @Override
     public void setSize(double size) {
-
     }
 }

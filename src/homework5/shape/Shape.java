@@ -1,7 +1,6 @@
 package homework5.shape;
 
 import homework5.enums.Direction;
-import homework5.enums.Type;
 
 public interface Shape {
     void draw();

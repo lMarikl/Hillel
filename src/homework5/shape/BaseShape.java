@@ -1,7 +1,6 @@
 package homework5.shape;
 
 import homework5.enums.Direction;
-import homework5.enums.Type;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import java.util.List;
@@ -16,7 +15,7 @@ public abstract class BaseShape implements Shape {
     private double speedX;
     private double speedY;
     private boolean inFocus;
-    public BaseShape(GraphicsContext gc, List<Shape> shapes) {
+    BaseShape(GraphicsContext gc, List<Shape> shapes) {
         this.gc = gc;
         size = 50;
         maxSize = 150;
@@ -48,7 +47,6 @@ public abstract class BaseShape implements Shape {
     public void draw() {
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(6);
-
     }
 
     @Override
